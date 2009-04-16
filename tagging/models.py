@@ -7,6 +7,7 @@ try:
 except NameError:
     from sets import Set as set
 
+from django.contrib.auth.models import User
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection, models
@@ -467,6 +468,7 @@ class TaggedItem(models.Model):
     content_type = models.ForeignKey(ContentType, verbose_name=_('content type'))
     object_id    = models.PositiveIntegerField(_('object id'), db_index=True)
     object       = generic.GenericForeignKey('content_type', 'object_id')
+    user         = models.ForeignKey(User)
 
     objects = TaggedItemManager()
 
